@@ -8,13 +8,15 @@
 
 <div>
 	<fieldset>
-		<legend>{farm?.name}</legend>
+		<br />
 		<ul>
 			{#each farm.links as link}
-				<li><a href={link.url} target="_blank">{link.display}</a></li>
+				<li>
+					<a href={link.url} target="_blank">{link.display}</a>
+				</li>
 			{/each}
 		</ul>
-
+		<br />
 		<span>APR: </span><span>{farmDetails.apr}%</span>
 		<br />
 		<span>Total {farm?.name} Staked: </span><span>{farmDetails.totalStaked}</span>

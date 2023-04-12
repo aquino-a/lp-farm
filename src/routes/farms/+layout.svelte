@@ -5,9 +5,9 @@
 </script>
 
 <h1>Farms</h1>
-<div class="submenu">
+<div class="py-5">
 	{#each data.farms as farm}
-		<a href="/farms/{farm.id}">{farm.name}</a>
+		<a class="p-2 rounded-lg bg-zinc-200" href="/farms/{farm.id}">{farm.name}</a>
 	{/each}
 </div>
 
