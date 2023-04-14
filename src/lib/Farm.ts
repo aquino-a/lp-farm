@@ -1,7 +1,11 @@
+import zkfarmContract from './contracts/zkfarm-abi.json';
+
 export default interface Farm {
 	id: string;
 	name: string;
 	links: { display: string; url: string }[];
+	address: string;
+	abi: any;
 }
 
 export const farms: Farm[] = [
@@ -17,6 +21,8 @@ export const farms: Farm[] = [
 				display: 'Farm Contract',
 				url: 'https://explorer.zksync.io/address/0x949986Ab58DA5c23F06eaFA6A06777aDcD895339'
 			}
-		]
+		],
+		address: '0xE3A7207EBa4C4ef38f1e42540b56780891869764',
+		abi: zkfarmContract
 	}
 ];

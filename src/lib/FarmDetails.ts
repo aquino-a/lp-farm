@@ -3,4 +3,5 @@ export default interface FarmDetails {
 	totalStaked: number;
 	totalLocked: number;
 	rewardPool: number;
+	totalSupply: number;
 }
