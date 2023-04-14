@@ -10,7 +10,25 @@
       @apply text-xl;
     }
     a {
-        @apply hover:text-zinc-500;
-        @apply text-zinc-800;
+      @apply hover:text-zinc-500;
+      @apply text-zinc-800;
+    }
+    button {
+      @apply px-4;
+      @apply py-1;
+      @apply text-sm;
+      @apply text-zinc-50;
+      @apply font-semibold;
+      @apply rounded-full;
+      @apply border;
+      @apply text-zinc-50;
+      @apply hover:text-zinc-950;
+      @apply bg-zinc-950;
+      @apply hover:bg-zinc-50;
+      @apply focus:outline-none;
+      @apply focus:ring-2;
+      @apply focus:ring-2;
+      @apply focus:ring-zinc-400;
+      @apply focus:ring-offset-2;
     }
 }

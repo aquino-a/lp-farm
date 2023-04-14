@@ -17,12 +17,12 @@
 			{/each}
 		</ul>
 		<br />
-		<span>APR: </span><span>{farmDetails.apr}%</span>
+		<span>APR: </span><span>{farmDetails?.apr}%</span>
 		<br />
-		<span>Total {farm?.name} Staked: </span><span>{farmDetails.totalStaked}</span>
+		<span>Total {farm?.name} Staked: </span><span>{farmDetails?.totalStaked}</span>
 		<br />
-		<span>Total Value Locked: </span><span>${farmDetails.totalLocked}</span>
+		<span>Total Value Locked: </span><span>${farmDetails?.totalLocked}</span>
 		<br />
-		<span>{farm?.name} Reward Pool: </span><span>({farmDetails.rewardPool})</span>
+		<span>{farm?.name} Reward Pool: </span><span>({farmDetails?.rewardPool})</span>
 	</fieldset>
 </div>

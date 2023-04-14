@@ -1,4 +1,8 @@
-<script>
+<script lang="ts">
+	import { JsonRpcSigner } from 'ethers';
+
+	import { browserProviderInit, disconnectSigner } from '$lib/chain';
+	import { browserRunner } from '$lib/chain.store';
 	import '../app.css';
 </script>
 
@@ -33,6 +37,14 @@
 			</svg>
 		</a>
 		<a class="my-auto" target="_blank" href="https://t.me/zkinutoken">Telegram</a>
+
+		<div class="w-2">
+			{#if $browserRunner instanceof JsonRpcSigner}
+				<button on:click={disconnectSigner}>Disconnect</button>
+			{:else}
+				<button on:click={browserProviderInit}>Connect</button>
+			{/if}
+		</div>
 	</nav>
 </div>
 
