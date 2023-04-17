@@ -33,6 +33,8 @@
 			<span>Total Value Locked: </span><span>${farmDetails?.totalLocked}</span>
 			<br />
 			<span>{farm?.name} Reward Pool: </span><span>({farmDetails?.rewardPool})</span>
+		{:catch error}
+			<p class="text-red-700">{error.message}</p>
 		{/await}
 	</fieldset>
 </div>
