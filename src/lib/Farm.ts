@@ -22,7 +22,7 @@ export const farms: Farm[] = [
 				url: 'https://explorer.zksync.io/address/0x949986Ab58DA5c23F06eaFA6A06777aDcD895339'
 			}
 		],
-		address: '0xE3A7207EBa4C4ef38f1e42540b56780891869764',
+		address: '0x5CcCEf751c0e1C9824Cb4Ed4048142418102e21b',
 		abi: zkfarmContract
 	}
 ];
