@@ -12,6 +12,13 @@ class BaseStaker implements Staker {
 	readonly poolId: number;
 	readonly contract: Contract;
 
+	/**
+	 * Creates an instance of BaseStaker.
+	 *
+	 * @param {number} poolId the pool id (array index#) of the pool in the contract.
+	 * @param {Contract} contract should have a valid signer.
+	 * @memberof BaseStaker
+	 */
 	constructor(poolId: number, contract: Contract) {
 		this.poolId = poolId;
 		this.contract = contract;
