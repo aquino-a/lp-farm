@@ -1,4 +1,7 @@
-import type { Contract, ContractRunner } from 'ethers';
+import type { BaseContract, Contract, ContractRunner } from 'ethers';
+//
+import type Farm from './Farm';
+import { createContract } from './chain';
 
 export interface Staker {
 	stake(amount: number): Promise<void>;
@@ -8,9 +11,17 @@ export interface Staker {
 	redeem(amount: number): Promise<void>;
 }
 
+export const createStaker = (farm: Farm, runner: ContractRunner) => {
+	const contract = createContract(farm.address, farm.abi);
+	const contractWithRunner = contract.connect(runner);
+	const staker = new BaseStaker(farm.poolId, contractWithRunner);
+
+	return staker;
+};
+
 class BaseStaker implements Staker {
 	readonly poolId: number;
-	readonly contract: Contract;
+	readonly contract: BaseContract;
 
 	/**
 	 * Creates an instance of BaseStaker.
@@ -19,7 +30,7 @@ class BaseStaker implements Staker {
 	 * @param {Contract} contract should have a valid signer.
 	 * @memberof BaseStaker
 	 */
-	constructor(poolId: number, contract: Contract) {
+	constructor(poolId: number, contract: BaseContract) {
 		this.poolId = poolId;
 		this.contract = contract;
 	}
