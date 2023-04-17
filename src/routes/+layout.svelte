@@ -1,9 +1,32 @@
 <script lang="ts">
 	import { JsonRpcSigner } from 'ethers';
-
+	//
 	import { browserProviderInit, disconnectSigner } from '$lib/chain';
 	import { browserRunner } from '$lib/chain.store';
 	import '../app.css';
+	//
+	import Modal from '$lib/components/Modal.svelte';
+	import { setContext } from 'svelte';
+	import { showErrorKey } from '$lib/components/Modal';
+
+	let showModal: boolean = false;
+	let modalMessage: string;
+
+	const showError = (message: string) => {
+		modalMessage = message;
+		showModal = true;
+	};
+
+	const connect = async () => {
+		try {
+			await browserProviderInit();
+		} catch (error) {
+			console.log(error);
+			showError('Failed to connect wallet !!');
+		}
+	};
+
+	setContext(showErrorKey, showError);
 </script>
 
 <div class="px-10 py-5 shadow-sm">
@@ -38,11 +61,11 @@
 		</a>
 		<a class="my-auto" target="_blank" href="https://t.me/zkinutoken">Telegram</a>
 
-		<div class="w-2">
+		<div class="w-24 flex justify-center">
 			{#if $browserRunner instanceof JsonRpcSigner}
 				<button on:click={disconnectSigner}>Disconnect</button>
 			{:else}
-				<button on:click={browserProviderInit}>Connect</button>
+				<button on:click={connect}>Connect</button>
 			{/if}
 		</div>
 	</nav>
@@ -51,3 +74,9 @@
 <div class="container my-5 text-center">
 	<slot />
 </div>
+
+<Modal bind:showModal>
+	<div>
+		{modalMessage}
+	</div>
+</Modal>
