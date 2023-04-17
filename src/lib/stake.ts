@@ -11,7 +11,7 @@ export interface Staker {
 	redeem(amount: number): Promise<void>;
 }
 
-export const createStaker = (farm: Farm, runner: ContractRunner) => {
+export const createStaker = (farm: Farm, runner: ContractRunner): Staker => {
 	const contract = createContract(farm.address, farm.abi);
 	const contractWithRunner = contract.connect(runner);
 	const staker = new BaseStaker(farm.poolId, contractWithRunner);
