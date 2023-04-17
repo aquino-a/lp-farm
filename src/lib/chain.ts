@@ -1,4 +1,4 @@
-import { Contract, Interface, PocketProvider, getDefaultProvider, BrowserProvider } from 'ethers';
+import { Contract, Interface, PocketProvider, getDefaultProvider, BrowserProvider, JsonRpcSigner } from 'ethers';
 import type { ContractRunner } from 'ethers';
 import { get } from 'svelte/store';
 //
@@ -65,17 +65,35 @@ export const getBrowserProvider = async (): Promise<ContractRunner> => {
 		// requests through MetaMask.
 		const provider = new BrowserProvider(window.ethereum);
 		
-		// It also provides an opportunity to request access to write
-		// operations, which will be performed by the private key
-		// that MetaMask manages for the user.
-		const signer = await provider.getSigner();
-
-		if (signer != undefined) {
-			return signer;
-		}
-
 		return provider;
 	}
+}
+
+export const connectToWallet = async (runner?: ContractRunner) => {
+	const signer = await getSigner(runner);
+	browserRunner.set(signer);
+}
+
+const getSigner = async (runner?: ContractRunner): Promise<JsonRpcSigner> => {
+	if (runner == null) {
+		runner = await getBrowserProvider();		
+	}
+
+	const provider = runner.provider;
+	if (!(provider instanceof BrowserProvider)) {
+		throw Error('Provider must be a \'BrowserProvider\' to connect wallet.');
+	}
+
+	// It also provides an opportunity to request access to write
+	// operations, which will be performed by the private key
+	// that MetaMask manages for the user.
+	const signer = await provider.getSigner();
+
+	if (signer == null) {
+		throw Error('Failed to get signer!');
+	}
+
+	return signer;
 }
 
 const getProvider = (): ContractRunner => {
