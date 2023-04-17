@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { JsonRpcSigner } from 'ethers';
 	//
-	import { browserProviderInit, disconnectSigner } from '$lib/chain';
+	import { browserProviderInit, disconnectSigner, connectToWallet } from '$lib/chain';
 	import { browserRunner } from '$lib/chain.store';
 	import '../app.css';
 	//
 	import Modal from '$lib/components/Modal.svelte';
-	import { setContext } from 'svelte';
+	import { onMount, setContext } from 'svelte';
 	import { showErrorKey } from '$lib/components/Modal';
 
 	let showModal: boolean = false;
@@ -19,12 +19,14 @@
 
 	const connect = async () => {
 		try {
-			await browserProviderInit();
+			await connectToWallet();
 		} catch (error) {
 			console.log(error);
 			showError('Failed to connect wallet !!');
 		}
 	};
+
+	onMount(browserProviderInit);
 
 	setContext(showErrorKey, showError);
 </script>
