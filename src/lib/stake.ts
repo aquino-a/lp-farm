@@ -56,6 +56,7 @@ class BaseStaker implements Staker {
 	};
 
 	private executeContractFunction = async (name: string, amount: number) => {
+		// @ts-expect-error contract functions are not known.
 		const tx = await this.contract[name](this.poolId, amount);
 		await tx.wait();
 	};
