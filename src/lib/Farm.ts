@@ -4,6 +4,7 @@ export default interface Farm {
 	id: string;
 	name: string;
 	links: { display: string; url: string }[];
+	poolId: number;
 	address: string;
 	abi: any;
 }
@@ -22,6 +23,7 @@ export const farms: Farm[] = [
 				url: 'https://explorer.zksync.io/address/0x949986Ab58DA5c23F06eaFA6A06777aDcD895339'
 			}
 		],
+		poolId: 1,
 		address: '0x5CcCEf751c0e1C9824Cb4Ed4048142418102e21b',
 		abi: zkfarmContract
 	}
