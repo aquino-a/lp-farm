@@ -1,14 +1,14 @@
-import type { BaseContract, Contract, ContractRunner } from 'ethers';
+import type { BaseContract, ContractRunner, TransactionReceipt, TransactionResponse } from 'ethers';
 //
 import type Farm from './Farm';
 import { createContract } from './chain';
 
 export interface Staker {
-	stake(amount: number): Promise<void>;
-	unstake(amount: number): Promise<void>;
-	deposit(amount: number): Promise<void>;
-	withdraw(amount: number): Promise<void>;
-	redeem(amount: number): Promise<void>;
+	stake(amount: number): Promise<TransactionReceipt>;
+	unstake(amount: number): Promise<TransactionReceipt>;
+	deposit(amount: number): Promise<TransactionReceipt>;
+	withdraw(amount: number): Promise<TransactionReceipt>;
+	redeem(amount: number): Promise<TransactionReceipt>;
 }
 
 export const createStaker = (farm: Farm, runner: ContractRunner): Staker => {
@@ -35,29 +35,28 @@ class BaseStaker implements Staker {
 		this.contract = contract;
 	}
 
-	stake = async (amount: number) => {
-		await this.executeContractFunction('stake', amount);
+	stake = async (amount: number): Promise<TransactionReceipt> => {
+		const tx: TransactionResponse = await this.contract.stake(this.poolId, amount);
+		return await tx.wait();
 	};
 
-	unstake = async (amount: number) => {
-		await this.executeContractFunction('unstake', amount);
+	unstake = async (amount: number): Promise<TransactionReceipt> => {
+		const tx: TransactionResponse = await this.contract.unstake(this.poolId, amount);
+		return await tx.wait();
 	};
 
-	deposit = async (amount: number) => {
-		await this.executeContractFunction('deposit', amount);
+	deposit = async (amount: number): Promise<TransactionReceipt> => {
+		const tx: TransactionResponse = await this.contract.deposit(this.poolId, amount);
+		return await tx.wait();
 	};
 
-	withdraw = async (amount: number) => {
-		await this.executeContractFunction('withdraw', amount);
+	withdraw = async (amount: number): Promise<TransactionReceipt> => {
+		const tx: TransactionResponse = await this.contract.withdraw(this.poolId, amount);
+		return await tx.wait();
 	};
 
-	redeem = async (amount: number) => {
-		await this.executeContractFunction('redeem', amount);
-	};
-
-	private executeContractFunction = async (name: string, amount: number) => {
-		// @ts-expect-error contract functions are not known.
-		const tx = await this.contract[name](this.poolId, amount);
-		await tx.wait();
+	redeem = async (amount: number): Promise<TransactionReceipt> => {
+		const tx: TransactionResponse = await this.contract.redeem(this.poolId, amount);
+		return await tx.wait();
 	};
 }
